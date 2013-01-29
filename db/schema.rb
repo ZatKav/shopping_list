@@ -11,7 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130109220444) do
+ActiveRecord::Schema.define(:version => 20130114193319) do
+
+  create_table "items", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "list_item_relationships", :force => true do |t|
+    t.integer  "list_id"
+    t.integer  "item_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "list_item_relationships", ["item_id"], :name => "index_list_item_relationships_on_item_id"
+  add_index "list_item_relationships", ["list_id", "item_id"], :name => "index_list_item_relationships_on_list_id_and_item_id", :unique => true
+  add_index "list_item_relationships", ["list_id"], :name => "index_list_item_relationships_on_list_id"
 
   create_table "lists", :force => true do |t|
     t.string   "name"

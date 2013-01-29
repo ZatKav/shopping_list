@@ -2,11 +2,14 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  email           :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  password_digest :string(255)
+#  remember_token  :string(255)
+#  admin           :boolean          default(FALSE)
 #
 
 class User < ActiveRecord::Base
@@ -23,6 +26,11 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
+
+  def feed
+    # This is preliminary. See "Following users" for the full implementation.
+    List.where("user_id = ?", id)
+  end
 
   private
 

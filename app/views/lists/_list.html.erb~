@@ -1,4 +1,5 @@
 <li>
+  <span class="name"><%= list.name %></span>
   <%= link_to list.name, list %>
   <span class="timestamp">
     Posted <%= time_ago_in_words(list.created_at) %> ago.
